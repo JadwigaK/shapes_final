@@ -10,13 +10,16 @@ import shapes.logika.Weight;
 public class ShapeBuilder {
     private ShapeFactory shapeFactory = new ShapeFactory();
     private Shape shape;
+    private String parameters;
 
-    public Shape getShape(String s){
-        this.shape = shapeFactory.getShape(s);
-        return this.shape;
-
+    public ShapeBuilder(String parameters) {
+        this.parameters = parameters;
     }
 
+    public ShapeBuilder getShape(String parameters){
+        this.shape = shapeFactory.getShape(parameters);
+        return this;
+    }
 
     public ShapeBuilder setMaterial(Material m){
         shape.setMaterial(m);

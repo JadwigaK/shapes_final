@@ -1,14 +1,16 @@
 package shapes.logika;
 
+import java.util.List;
+
 /**
  * Created by Jadwiga on 2016-10-02.
  */
 public class MaterialFactory {
-    public Material getMaterial(String[] s){
+    public Material getMaterial(List<String> strings){
         Material material = new Material();
 
-        for (int i = 0; i < s.length; i++){
-            switch(s[i]) {
+        for (String s: strings){
+            switch(s) {
                 case "plastic":
                     material =  new Material("plastic");
                 break;
@@ -21,8 +23,8 @@ public class MaterialFactory {
             }
         }
 
-        for (int i=0; i < s.length; i++){
-            switch(s[i]){
+        for (String s: strings){
+            switch(s){
                 case "very": material.setAdjective("very"); break;
                 case "extremely": material.setAdjective("extremely"); break;
                 case "quite": material.setAdjective("quite"); break;

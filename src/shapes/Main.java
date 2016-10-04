@@ -5,6 +5,7 @@ import shapes.logika.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Created by Jadwiga on 2016-09-23.
@@ -20,25 +21,18 @@ public class Main {
         // Kolejne czesci oddzileone sa przecinkiem - bez spacji!!
         String parameters = StringParser.readShapeParameters(in);
         String[] animations = StringParser.readAdditionalParameters(in);
-        String[] prefixes  = StringParser.readMaterialAndWeight(in);
+        List<String> materials  = StringParser.readMaterial(in);
+        List<String> weights  = StringParser.readMaterial(in);
+// czy o cos takiego Ci chodziło w main???
+        ShapeBuilder shapeBuilder = new ShapeBuilder(parameters);
 
-        // czemu mi to podkresla na szaro ale dziala
-        ShapeBuilder shapeBuilder = new ShapeBuilder();
-        Shape shape = shapeBuilder.getShape(parameters);
+        shapeBuilder.getShape(parameters);
 
-        // zakładamy ze na pocztaku jest zawsze Weight  z przymiotnikami a potem Material z przymiotnikami
-        //i ja wiem ze ja tu itreuje po tym prefixes ze 4 razy przez te Faktorki co je dodałam ale jak mam nie filtrowac
-        // to to jest taki najprostrzy sposób ktory mi wpadł do głowy
-        WeightFactory weightFactory = new WeightFactory();
-        Weight weight = weightFactory.getWeight(prefixes);
+        PrefixesProvider pp = new PrefixesProvider();
+        pp.giveMaterial(shapeBuilder, materials);
+        pp.giveWeight(shapeBuilder, weights);
 
-        MaterialFactory materialFactory = new MaterialFactory();
-        Material material = materialFactory.getMaterial(prefixes);
-
-        //ten cały bulider jest tu bez sensu bo tylko raz uzywam setMaterial setWEeight
-        shape = shapeBuilder.setWeight(weight).setMaterial(material).bulid();
-
-
+        Shape shape = shapeBuilder.bulid();
 
         Drawable drawable = shape;
         DrawableFactory drawableFactory= new DrawableFactory();
@@ -46,7 +40,7 @@ public class Main {
             for (String animation: animations){
                 drawable = drawableFactory.getDrawable(drawable, animation);
             }
-            System.out.println("I'am "+drawable.draw());
+            System.out.println("I am "+drawable.draw());
         }
 
         System.out.println("Thank you! That is the end!");
