@@ -20,18 +20,13 @@ public class Main {
 
         // Kolejne czesci oddzileone sa przecinkiem - bez spacji!!
         String parameters = StringParser.readShapeParameters(in);
-        String[] animations = StringParser.readAdditionalParameters(in);
-        List<String> materials  = StringParser.readMaterial(in);
-        List<String> weights  = StringParser.readMaterial(in);
-// czy o cos takiego Ci chodziło w main???
+        List<String> animations = StringParser.readAdditionalParameters(in);
+        List<String> characteristics = StringParser.getCharacteristics(in);
+
         ShapeBuilder shapeBuilder = new ShapeBuilder(parameters);
-
         shapeBuilder.getShape(parameters);
-
         PrefixesProvider pp = new PrefixesProvider();
-        pp.giveMaterial(shapeBuilder, materials);
-        pp.giveWeight(shapeBuilder, weights);
-
+        pp.setPrefixes(characteristics, shapeBuilder);
         Shape shape = shapeBuilder.bulid();
 
         Drawable drawable = shape;

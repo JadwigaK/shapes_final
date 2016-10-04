@@ -6,11 +6,10 @@ import java.util.List;
  * Created by Jadwiga on 2016-10-02.
  */
 public class WeightFactory {
-    public Weight getWeight(List<String> strings) {
+    public Weight getWeight(String characteristic, String adjective ) {
         Weight weight = new Weight();
 
-        for (String s: strings) {
-            switch (s) {
+            switch (characteristic) {
                 case "heavy":
                     weight = new Weight("heavy");
                     break;
@@ -18,10 +17,8 @@ public class WeightFactory {
                     weight = new Weight("light");
                     break;
             }
-        }
 
-        for (String s: strings) {
-            switch (s) {
+            switch (adjective) {
                 case "very":
                     weight.setAdjective("very");
                     break;
@@ -31,7 +28,7 @@ public class WeightFactory {
                 case "quite":
                     weight.setAdjective("quite");
                     break;
-            }
+
         }
 
         return weight;
